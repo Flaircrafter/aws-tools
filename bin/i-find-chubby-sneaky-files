@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Directory to check
+directory=$1
+
+# Number of top entries to display
+top_n=$2 || top_n=15
+
+if [ -z "$directory" ] || [ -z "$top_n" ]; then
+  echo "Usage: $0 [directory] [number of top entries]"
+  exit 1
+fi
+
+echo "Top $top_n largest files in $directory:"
+find "$directory" -type f -exec du -h {} + | sort -rh | head -n $top_n
+
+echo ""
+echo "Top $top_n largest directories in $directory:"
+du -h "$directory"/* | sort -rh | head -n $top_n

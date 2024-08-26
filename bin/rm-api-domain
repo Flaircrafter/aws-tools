@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+DOMAIN_NAME=$1
+
+echo "Deleting domain name $DOMAIN_NAME.."
+aws apigateway delete-domain-name --domain-name $DOMAIN_NAME --region us-east-1
+echo "Sleeping for 60 seconds to allow the domain name to be deleted"
+for ((i=60; i>=0; i--)); do
+    echo "$i"
+    sleep 1
+done
